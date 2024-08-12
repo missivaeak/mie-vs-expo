@@ -18,6 +18,11 @@ export default function Index() {
           justifyContent: "center",
           alignItems: "center",
         }}
+        ellipsi={[
+          {pos: {x: 0, y: 0}, majorRadius: 300, minorRadius: 300, angleDeg: 0, colour: Colors.light.theme1},
+          {pos: {x: 0, y: 0}, majorRadius: 200, minorRadius: 100, angleDeg: 0, colour: Colors.light.theme2},
+          {pos: {x: 100, y: 0}, majorRadius: 250, minorRadius: 150, angleDeg: 25, colour: Colors.light.offwhite + "aa"}
+        ]}
       >
         <Text>test</Text>
       </VectorGraphicWrap>

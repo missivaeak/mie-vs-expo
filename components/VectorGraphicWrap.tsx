@@ -3,53 +3,42 @@ import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 import { opacity } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
+import { EllipseShape } from "@/types/geometry";
+
 export type VectorGraphicWrap = ViewProps & {
-  lightColor?: string;
-  darkColor?: string;
+  ellipsi: EllipseShape[]
 };
 
 
-export function VectorGraphicWrap({ style, lightColor, darkColor, ...otherProps }: VectorGraphicWrap) {
+export function VectorGraphicWrap({ ellipsi, style, ...otherProps }: VectorGraphicWrap) {
+  const ellipseEls = ellipsi.map((ellipse, index) => {
+    return <View
+    key={index}
+    style={{
+      ...StyleSheet.absoluteFillObject,
+      position: 'absolute',
+      width: ellipse.majorRadius,
+      height: ellipse.majorRadius,
+      left: ellipse.pos.x,
+      top: ellipse.pos.y,
+      borderRadius: ellipse.majorRadius / 2,
+      backgroundColor: ellipse.colour,
+      transform: [
+        {translateX: "-50%"},
+        {translateY: "-50%"},
+        {rotate: `${ellipse.angleDeg}deg`},
+        {scaleX: ellipse.minorRadius / ellipse.majorRadius},
+      ]
+    }}
+    >
+    </View>
+  });
+
   return (
     <View
       style={style}
     >
-      <View
-        style={{
-          ...StyleSheet.absoluteFillObject,
-          position: 'absolute',
-          width: 300,
-          height: 300,
-          top: 0,
-          left: 0,
-          borderRadius: 150,
-          backgroundColor: Colors.light.theme1
-        }}
-      />
-      <View
-        style={{
-          ...StyleSheet.absoluteFillObject,
-          position: 'absolute',
-          width: 200,
-          height: 200,
-          top: 0,
-          left: 0,
-          borderRadius: 100,
-          backgroundColor: Colors.light.theme2
-        }}
-      />
-      <View
-        style={{
-          ...StyleSheet.absoluteFillObject,
-          position: 'absolute',
-          width: 250,
-          height: 250,
-          top: 0,
-          left: 100,
-          borderRadius: 125,
-          backgroundColor: Colors.light.offwhite + "aa",
-        }}
-      />
+      {ellipseEls}
       {otherProps.children}
     </View>
   )
